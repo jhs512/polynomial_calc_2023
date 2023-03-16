@@ -4,9 +4,19 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class Calc {
+    public static boolean debug = false;
+    public static int runCallCount = 0;
+
     public static int run(String exp) {
+        runCallCount++;
+
         exp = exp.trim();
         exp = stripOuterBrackets(exp);
+
+        if (debug) {
+            System.out.printf("exp(%d) : %s\n", runCallCount, exp);
+        }
+
 
         // 단일항이 입력되면 바로 리턴
         if (!exp.contains(" ")) return Integer.parseInt(exp);
@@ -69,14 +79,12 @@ public class Calc {
         for (int i = 0; i < exp.length(); i++) {
             char c = exp.charAt(i);
 
-            if ( c == '(' ) {
+            if (c == '(') {
                 bracketsCount++;
-            }
-            else if ( c == ')' ) {
+            } else if (c == ')') {
                 bracketsCount--;
-            }
-            else if ( c == findChar ) {
-                if ( bracketsCount == 0 ) return i;
+            } else if (c == findChar) {
+                if (bracketsCount == 0) return i;
             }
         }
 
@@ -86,7 +94,7 @@ public class Calc {
     private static int findSplitPointIndex(String exp) {
         int index = findSplitPointIndexBy(exp, '+');
 
-        if ( index >= 0 ) return index;
+        if (index >= 0) return index;
 
         return findSplitPointIndexBy(exp, '*');
     }
