@@ -35,6 +35,7 @@ public class Calc {
         boolean needToSplit = exp.contains("(") || exp.contains(")");
 
         if (needToSplit) {
+            exp = exp.replaceAll("- ", "+ -");
             int splitPointIndex = findSplitPointIndex(exp);
 
             String firstExp = exp.substring(0, splitPointIndex);
